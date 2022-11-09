@@ -1,0 +1,18 @@
+server:
+  port: 7003
+
+#logging:
+logging:
+  level:
+    root: info
+    com.ftrako: debug
+  config: classpath:log4j2.yml
+eureka:
+  client:
+    register-with-eureka: true # 表示注册
+    fetch-registry: true # 从注册中心获取其他服务的地址
+    service-url:
+      defaultZone: http://localhost:7000/eureka # 不搭建集群，单机，指向自己
+spring:
+  application:
+    name: PAYMENTAPISRV

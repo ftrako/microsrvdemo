@@ -1,0 +1,18 @@
+server:
+  port: 7000
+
+#logging:
+logging:
+  level:
+    root: info
+    com.ftrako: debug
+  config: classpath:log4j2.yml
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false # 表示不向自己注册
+    fetch-registry: false # 不去注册中心获取其他服务的地址
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka # 不搭建集群，单机，指向自己
