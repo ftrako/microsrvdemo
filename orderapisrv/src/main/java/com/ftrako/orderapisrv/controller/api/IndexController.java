@@ -1,5 +1,6 @@
 package com.ftrako.orderapisrv.controller.api;
 
+import com.ftrako.orderapisrv.service.PaymentService;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -31,6 +32,9 @@ public class IndexController {
     @Resource
     private RestTemplate restTemplate;
 
+    @Resource
+    private PaymentService paymentService;
+
     @Value("${server.port}")
     private String port;
 
@@ -48,6 +52,14 @@ public class IndexController {
         logger.debug("res:" + res);
 
         return "hello, orderapisrv, port:" + port;
+    }
+
+    @GetMapping("/feign")
+    public String feign() {
+        String res = paymentService.getPayment();
+        logger.debug("res:" + res);
+
+        return "feign, orderapisrv, port:" + port;
     }
 
     private String doGet(String url) throws IOException {
