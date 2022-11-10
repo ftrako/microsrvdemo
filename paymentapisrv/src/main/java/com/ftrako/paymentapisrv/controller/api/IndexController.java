@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -25,5 +26,14 @@ public class IndexController {
     public String index() {
         logger.debug("hello");
         return "hello, from paymentapisrv, port:" + port;
+    }
+
+    @GetMapping("/hystrix")
+    public String hystrix(@RequestParam("id") String id) {
+        logger.debug("id=" + id);
+        int a = 1;
+        int b = 0;
+        logger.debug(a / b); // 触发panic
+        return "hystrix, from paymentapisrv, port:" + port;
     }
 }

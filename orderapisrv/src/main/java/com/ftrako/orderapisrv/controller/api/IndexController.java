@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -60,6 +61,14 @@ public class IndexController {
         logger.debug("res:" + res);
 
         return "feign, orderapisrv, port:" + port;
+    }
+
+    @GetMapping("/hystrix")
+    public String hystrix(@RequestParam String id) {
+        String res = paymentService.getHystrix(id);
+        logger.debug("hystrix-res:" + res);
+
+        return "hystrix, orderapisrv, port:" + port;
     }
 
     private String doGet(String url) throws IOException {
